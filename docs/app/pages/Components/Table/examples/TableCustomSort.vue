@@ -12,6 +12,34 @@
         <md-table-cell md-label="Gender" md-sort-by="gender">{{ item.gender }}</md-table-cell>
         <md-table-cell md-label="Job Title" md-sort-by="title">{{ item.title }}</md-table-cell>
       </md-table-row>
+
+      <tr slot="md-table-footer-row" class="md-table-row" slot-scope="{}">
+        <td class="md-table-cell">
+          <div class="md-table-cell-container">
+            Footer
+          </div>
+        </td>
+        <td class="md-table-cell">
+          <div class="md-table-cell-container">
+            Footer
+          </div>
+        </td>
+        <td class="md-table-cell">
+          <div class="md-table-cell-container">
+            Footer
+          </div>
+        </td>
+        <td class="md-table-cell">
+          <div class="md-table-cell-container">
+            Footer
+          </div>
+        </td>
+        <td class="md-table-cell">
+          <div class="md-table-cell-container">
+            Footer
+          </div>
+        </td>
+      </tr>
     </md-table>
   </div>
 </template>
