@@ -92,6 +92,7 @@
           multiple: false,
           modelValue: this.localValue,
           setValue: this.setValue,
+          setSpecialValue: this.setSpecialValue,
           setContent: this.setContent,
           setMultipleValue: this.setMultipleValue,
           setMultipleContent: this.setMultipleContent
@@ -216,11 +217,17 @@
           this.localValue = this.arrayAccessorRemove(this.localValue, index)
         }
       },
-      setValue (newValue) {
+      setValue (newValue, asd = false) {
+        console.log('🚀');
         this.model = newValue
         this.setFieldValue()
-        this.showSelect = false
+        this.showSelect = asd
       },
+      // setSpecialValue (newValue, asd) {
+      //   this.model = newValue
+      //   this.setFieldValue()
+      //   this.showSelect = asd
+      // },
       setContent (newLabel) {
         this.MdSelect.label = newLabel
       },

@@ -8481,6 +8481,7 @@ exports.default = {
         multiple: false,
         modelValue: this.localValue,
         setValue: this.setValue,
+        setSpecialValue: this.setSpecialValue,
         setContent: this.setContent,
         setMultipleValue: this.setMultipleValue,
         setMultipleContent: this.setMultipleContent
@@ -8605,10 +8606,19 @@ exports.default = {
       }
     },
     setValue: function setValue(newValue) {
+      var asd = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      console.log('🚀');
       this.model = newValue;
       this.setFieldValue();
-      this.showSelect = false;
+      this.showSelect = asd;
     },
+
+    // setSpecialValue (newValue, asd) {
+    //   this.model = newValue
+    //   this.setFieldValue()
+    //   this.showSelect = asd
+    // },
     setContent: function setContent(newLabel) {
       this.MdSelect.label = newLabel;
     },
@@ -9523,7 +9533,8 @@ exports.default = {
   name: 'MdOption',
   props: {
     value: [String, Number, Boolean],
-    disabled: Boolean
+    disabled: Boolean,
+    asd: Boolean
   },
   inject: {
     MdSelect: {},
@@ -9548,6 +9559,9 @@ exports.default = {
     isDisabled: function isDisabled() {
       return this.MdOptgroup.disabled || this.disabled;
     },
+    isAsd: function isAsd() {
+      return this.MdOptgroup.asd || this.asd;
+    },
     key: function key() {
       var isSet = this.value || this.value === 0;
       return isSet ? this.value : this.uniqueId;
@@ -9569,6 +9583,7 @@ exports.default = {
       if (val === this.isSelected) {
         return;
       }
+      // console.log('wtf');
       this.setSelection();
     },
     isSelected: function isSelected(val) {
@@ -9597,15 +9612,22 @@ exports.default = {
       this.isSelected = this.selectValue.includes(this.value);
     },
     setSingleSelection: function setSingleSelection() {
-      this.MdSelect.setValue(this.value);
+      this.MdSelect.setValue(this.value, this.isAsd);
     },
+
+    // setSpecialSelection () {
+    //   this.MdSelect.setSpecialValue(this.value, this.isAsd)
+    // },
     setMultipleSelection: function setMultipleSelection() {
       this.MdSelect.setMultipleValue(this.value);
     },
     setSelection: function setSelection() {
+      // debugger;
       if (!this.isDisabled) {
         if (this.isMultiple) {
           this.setMultipleSelection();
+          // } else if (this.isAsd) {
+          //   this.setSpecialSelection();
         } else {
           this.setSingleSelection();
         }
@@ -9655,12 +9677,14 @@ exports.default = {
   name: 'MdOptgroup',
   props: {
     label: String,
-    disabled: Boolean
+    disabled: Boolean,
+    asd: Boolean
   },
   provide: function provide() {
     return {
       MdOptgroup: {
-        disabled: this.disabled
+        disabled: this.disabled,
+        asd: this.asd
       }
     };
   }
@@ -28835,7 +28859,7 @@ var render = function() {
     "md-menu-item",
     {
       class: _vm.optionClasses,
-      attrs: { disabled: _vm.isDisabled },
+      attrs: { disabled: _vm.isDisabled, asd: _vm.isAsd },
       on: { click: _vm.setSelection }
     },
     [

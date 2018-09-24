@@ -1,5 +1,5 @@
 <template>
-  <md-menu-item :class="optionClasses" :disabled="isDisabled" @click="setSelection">
+  <md-menu-item :class="optionClasses" :disabled="isDisabled" @click="setSelection" :asd="isAsd">
     <md-checkbox class="md-primary" v-model="isChecked" v-if="MdSelect.multiple" :disabled="isDisabled" />
 
     <span class="md-list-item-text" ref="text">
@@ -15,7 +15,8 @@
     name: 'MdOption',
     props: {
       value: [String, Number, Boolean],
-      disabled: Boolean
+      disabled: Boolean,
+      asd: Boolean,
     },
     inject: {
       MdSelect: {},
@@ -38,6 +39,9 @@
       isDisabled () {
         return this.MdOptgroup.disabled || this.disabled
       },
+      isAsd () {
+        return this.MdOptgroup.asd || this.asd
+      },
       key () {
         let isSet = (this.value || this.value === 0)
         return isSet ? this.value : this.uniqueId
@@ -59,6 +63,7 @@
         if (val === this.isSelected) {
           return
         }
+        // console.log('wtf');
         this.setSelection()
       },
       isSelected (val) {
@@ -87,15 +92,21 @@
         this.isSelected = this.selectValue.includes(this.value)
       },
       setSingleSelection () {
-        this.MdSelect.setValue(this.value)
+        this.MdSelect.setValue(this.value, this.isAsd)
       },
+      // setSpecialSelection () {
+      //   this.MdSelect.setSpecialValue(this.value, this.isAsd)
+      // },
       setMultipleSelection () {
         this.MdSelect.setMultipleValue(this.value)
       },
       setSelection () {
+        // debugger;
         if (!this.isDisabled) {
           if (this.isMultiple) {
             this.setMultipleSelection()
+          // } else if (this.isAsd) {
+          //   this.setSpecialSelection();
           } else {
             this.setSingleSelection()
           }

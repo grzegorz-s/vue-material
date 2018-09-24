@@ -10,12 +10,14 @@
     name: 'MdOptgroup',
     props: {
       label: String,
-      disabled: Boolean
+      disabled: Boolean,
+      asd: Boolean,
     },
     provide () {
       return {
         MdOptgroup: {
-          disabled: this.disabled
+          disabled: this.disabled,
+          asd: this.asd
         }
       }
     }
